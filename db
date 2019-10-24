@@ -13,3 +13,7 @@ create table happy_board (
 
 alter table happy_board add constraint pk_board 
 primary key (bno);
+
+ㅁ 더미 데이터 생성 sql
+insert into happy_board (bno,title,content,writer)
+values(seq_board.nextval, 'test 제목', 'happy content','frog00');
