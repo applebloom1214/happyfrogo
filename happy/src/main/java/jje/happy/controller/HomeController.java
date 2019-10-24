@@ -37,6 +37,7 @@ public class HomeController {
 		return "home";
 	}
 	
+	/*
 	@GetMapping("/list")
 	public String list() {
 		return "list";
@@ -50,7 +51,7 @@ public class HomeController {
 	@GetMapping("/happy/sign")
 	public String sign() {
 		return "/happy/sign";
-	}
+	}*/
 	
 	
 	

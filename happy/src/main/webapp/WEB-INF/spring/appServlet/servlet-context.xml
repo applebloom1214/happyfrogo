@@ -22,7 +22,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="jje.happy.controller" />
-	
+	<context:component-scan base-package="jje.happy.exception"/>
 	
 	
 </beans:beans>
