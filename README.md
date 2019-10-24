@@ -25,3 +25,12 @@ TOMCAT 9.0
 ★ 사이트 흐름
 
 로그인 창 (index) -> 메인 창
+
+★ 테이블 명세
+
+|작업|url|method|parameter|form|url 이동|
+|전체 목록|/happy/list|get||||
+|등록 처리|/happy/register|post|모든 항목|y|이동|
+|조회|/happy/read|get|bno=?|||
+|삭제 처리|/happy/remove|post|bno|y|이동|
+|수정 처리|/happy/modify|post|모든 항목|y|이동|
