@@ -1,0 +1,19 @@
+ㅁ 기본 게시판 DB
+
+create sequence happy_board;
+
+create table happy_board (
+  bno number(10,0),
+  title varchar2(200) not null,
+  content varchar2(2000) not null,
+  writer varchar2(50) not null,
+  regdate date default sysdate, 
+  updatedate date default sysdate
+);
+
+alter table happy_board add constraint pk_board 
+primary key (bno);
+
+ㅁ 더미 데이터 생성 sql
+insert into happy_board (bno,title,content,writer)
+values(seq_board.nextval, 'test 제목', 'happy content','frog00');
