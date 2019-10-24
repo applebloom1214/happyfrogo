@@ -29,6 +29,7 @@ TOMCAT 9.0
 ★ 테이블 명세
 
 |작업|url|method|parameter|form|url 이동|
+|------|---|---|---|---|---|
 |전체 목록|/happy/list|get||||
 |등록 처리|/happy/register|post|모든 항목|y|이동|
 |조회|/happy/read|get|bno=?|||
