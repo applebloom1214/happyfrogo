@@ -17,3 +17,74 @@ primary key (bno);
 ㅁ 더미 데이터 생성 sql
 insert into happy_board (bno,title,content,writer)
 values(seq_board.nextval, 'test 제목', 'happy content','frog00');
+
+insert into happy_board (bno,title,content,writer)
+(select seq_board.nextval, title, content, writer from happy_board);
+
+ㅁ 인덱스를 통한 조회
+-> pk를 지정하면 인덱스가 자동으로 만들어 진다.
+-> 인덱스는 이미 정렬이 돼 있다.
+select
+/*+ INDEX_DESC(happy_board pk_board) */
+*
+from
+happy_board
+where bno >0 
+
+힌트 구문
+select
+/*+ HINT_NAME (PARAM...) */
+COLUMN NAME, ...
+FROM TABLE NAME
+
+ROWNUM
+sql이 실행된 결과에 넘버링을 해줌.
+테이블에는 존재하지 않고 테이블에서 가져온 데이터를 이용해서 번호를 매기는 방식
+ROWNUM은 데이터를 가져올 때 적용되는 것이고, 이 후에 정렬되는 과정에서는 ROWNUM이 변경되지 않는다.
+정렬은 나중에 처리가 됨.
+
+인라인뷰
+select문 안쪽 from에 다시 select문
+
+select
+bno, title, content
+from
+(
+select
+/*+ INDEX_DESC(happy_board pk_board) */
+rownum rn, bno, title, content
+from
+happy_board
+where rownum <=20
+)
+where rn > 10;
+
+ㅁ 페이징 처리
+  select 
+    bno, title, content, writer, regdate, updatedate
+  from 
+      (
+      select /*+INDEX_DESC(happy_board pk_board) */
+        rownum rn, bno, title, content, writer, regdate, updatedate 
+      from 
+        happy_board
+      where rownum <=20 <- pageNum * amount
+      )
+      where rn > 10 (pageNum-1)*amount
+  
+  ㅇ 페이징의 끝 번호 계산
+  this.endPage = (int)(Math.ceil(페이지번호/10))*10;
+  ㅇ 페이징의 시작 번호 계산
+  this.startPage = this.endPage -9;
+  ㅇ total을 통한 endPage의 재계산
+  realEnd = (int)(Math.ceil((total * 1.0)/amount) );
+  
+  if(realEnd < this.endPage){
+  this.endPage = realEnd;
+  
+  ㅇ 이전 계산
+  this.prev = this.startPage > 1;
+  ㅇ 다음 계산
+  this.next = this.endPage < realEnd;
+  }
+      
