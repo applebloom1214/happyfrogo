@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import jje.happy.mapper.BoardMapper;
 import jje.happy.vo.BoardVO;
+import jje.happy.vo.Criteria;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -52,15 +53,6 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.delete(bno) == 1;
 	}
 
-	 @Override
-	 public List<BoardVO> getList() {
-	
-	 log.info("getList..........");
-	
-	 return mapper.getList();
-	 }
-
-	/*
 	@Override
 	public List<BoardVO> getList(Criteria cri) {
 
@@ -69,11 +61,16 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.getListWithPaging(cri);
 	}
 
-	@Override
-	public int getTotal(Criteria cri) {
-
-		log.info("get total count");
-		return mapper.getTotalCount(cri);
-	}*/
+	/*
+	 * @Override public List<BoardVO> getList(Criteria cri) {
+	 * 
+	 * log.info("get List with criteria: " + cri);
+	 * 
+	 * return mapper.getListWithPaging(cri); }
+	 * 
+	 * @Override public int getTotal(Criteria cri) {
+	 * 
+	 * log.info("get total count"); return mapper.getTotalCount(cri); }
+	 */
 
 }

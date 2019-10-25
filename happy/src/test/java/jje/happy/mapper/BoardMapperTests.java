@@ -9,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import jje.happy.vo.BoardVO;
 //import org.zerock.domain.Criteria;
-
+import jje.happy.vo.Criteria;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
@@ -69,7 +69,7 @@ public class BoardMapperTests {
 	public void testDelete() {
 
 		log.info("DELETE COUNT: " + mapper.delete(3L));
-	}*/
+	}
 	
 	
 	@Test
@@ -85,6 +85,23 @@ public class BoardMapperTests {
 		int count = mapper.update(board);
 		log.info("UPDATE COUNT: " + count);
 
+	}*/
+	
+	
+	@Test
+	public void testPaging() {
+
+		Criteria cri = new Criteria();
+		
+	   // 10개씩 3페이지 
+	    cri.setPageNum(3);
+	   cri.setAmount(10);
+
+
+		List<BoardVO> list = mapper.getListWithPaging(cri);
+
+		list.forEach(board -> log.info(board));
+
 	}
 	
 	/*
@@ -94,21 +111,7 @@ public class BoardMapperTests {
 
 	
 
-	@Test
-	public void testPaging() {
 
-		Criteria cri = new Criteria();
-		
-	    //10개씩 3페이지 
-	    cri.setPageNum(3);
-	    cri.setAmount(10);
-
-
-		List<BoardVO> list = mapper.getListWithPaging(cri);
-
-		list.forEach(board -> log.info(board));
-
-	}
 	
 	  @Test
 	  public void testSearch() {

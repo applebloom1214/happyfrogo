@@ -6,8 +6,6 @@
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery 주석처리 -->
-<!--     <script src="/resources/vendor/jquery/jquery.min.js"></script> -->
 
     <!-- Bootstrap Core JavaScript -->
     <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -25,7 +23,7 @@
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
-  $(document).ready(function() {
+  $(document).ready(function() { // 모바일 환경시 메뉴 오류 수정
     $('#dataTables-example').DataTable({
       responsive: true
     });

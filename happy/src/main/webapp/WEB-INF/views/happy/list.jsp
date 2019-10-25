@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 
-<%@include file="includes/header2.jsp"%>
+<%@include file="../includes/header2.jsp"%>
 <div class="weekly">
  주간 인기글 달 곳
 </div>
@@ -31,7 +31,7 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th>#번호</th>
+							<th>번호</th>
 							<th>제목</th>
 							<th>작성자</th>
 							<th>작성일</th>
@@ -42,11 +42,11 @@
 					<c:forEach items="${list}" var="board">
 						<tr>
 							<td><c:out value="${board.bno}" /></td>
-							<%-- <td><a href='/board/get?bno=<c:out value="${board.bno}"/>'><c:out value="${board.title}"/></a></td> --%>
+					<td><a href='/happy/get?bno=<c:out value="${board.bno}"/>'><c:out value="${board.title}"/></a></td> 
 
-							<td><a class='move' href='<c:out value="${board.bno}"/>'>
+						<%-- 	<td><a class='move' href='<c:out value="${board.bno}"/>'>
 									<c:out value="${board.title}" />
-							</a></td>
+							</a></td>--%>
 
 							<td><c:out value="${board.writer}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd"
@@ -57,10 +57,10 @@
 					</c:forEach>
 				</table>
 
-				<div class='row'>
+			<%--   	<div class='row'>
 					<div class="col-lg-12">
 
-						<form id='searchForm' action="/board/list" method='get'>
+						<form id='searchForm' action="/happy/list" method='get'>
 							<select name='type'>
 								<option value=""
 									<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>--</option>
@@ -88,13 +88,13 @@
 							<button class='btn btn-default'>Search</button>
 						</form>
 					</div>
-				</div>
+				</div>--%>
 
 
 				<div class='pull-right'>
 					<ul class="pagination">
 
-						<%--             <c:if test="${pageMaker.prev}">
+						             <c:if test="${pageMaker.prev}">
               <li class="paginate_button previous"><a href="#">Previous</a>
               </li>
             </c:if>
@@ -106,9 +106,9 @@
 
             <c:if test="${pageMaker.next}">
               <li class="paginate_button next"><a href="#">Next</a></li>
-            </c:if> --%>
+            </c:if>
 
-						<c:if test="${pageMaker.prev}">
+					<%--	<c:if test="${pageMaker.prev}">
 							<li class="paginate_button previous"><a
 								href="${pageMaker.startPage -1}">Previous</a></li>
 						</c:if>
@@ -123,7 +123,7 @@
 						<c:if test="${pageMaker.next}">
 							<li class="paginate_button next"><a
 								href="${pageMaker.endPage +1 }">Next</a></li>
-						</c:if>
+						</c:if> --%>
 
 
 					</ul>
@@ -131,6 +131,7 @@
 				<!--  end Pagination -->
 			</div>
 
+<%--  
 			<form id='actionForm' action="/board/list" method='get'>
 				<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 				<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
@@ -141,7 +142,7 @@
 					value='<c:out value="${ pageMaker.cri.keyword }"/>'>
 
 
-			</form>
+			</form>--%>
 
 
 			<!-- Modal  추가 -->
@@ -152,12 +153,12 @@
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
-							<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+							<h4 class="modal-title" id="myModalLabel">Happy Frog</h4>
 						</div>
 						<div class="modal-body">처리가 완료되었습니다.</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
-								data-dismiss="modal">Close</button>
+								data-dismiss="modal">닫기</button>
 							<button type="button" class="btn btn-primary">Save
 								changes</button>
 						</div>
@@ -174,7 +175,6 @@
 	</div>
 	<!-- end panel -->
 </div>
-</div>
 <!-- /.row -->
 
 
@@ -183,35 +183,38 @@
 
 
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
+	$(document).ready(	function() {
 
 						var result = '<c:out value="${result}"/>';
 
 						checkModal(result);
 
-						history.replaceState({}, null, null);
+						history.replaceState({}, null, null); 
+						// 뒤로가기 시 mordal이 뜨는 문제를 history 객체를 조작하여 해결
 
+					//Mordal 처리 메소드	
 						function checkModal(result) {
 
+						
 							if (result === '' || history.state) {
 								return;
 							}
+							
+			
 
 							if (parseInt(result) > 0) {
-								$(".modal-body").html(
-										"게시글 " + parseInt(result)
+								$(".modal-body").html("게시글 " + parseInt(result)
 												+ " 번이 등록되었습니다.");
 							}
 
 							$("#myModal").modal("show");
-						}
+						}//checkModal
 
+						//등록 버튼을 눌렀을 대 이벤트
 						$("#regBtn").on("click", function() {
 
-							self.location = "/board/register";
-
+							self.location = "/happy/register";
+                            //self = 현재창 자신 window와 같음
 						});
 
 						var actionForm = $("#actionForm");
@@ -280,4 +283,4 @@
 
 
 
-<%@include file="includes/footer.jsp"%>
+<%@include file="../includes/footer.jsp"%>
