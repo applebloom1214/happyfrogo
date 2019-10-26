@@ -46,7 +46,28 @@
 		where bno =#{bno}
 	</update>
 	
-		<select id="getListWithPaging" resultType="jje.happy.vo.BoardVO">
+		<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR"> <!-- 맨뒤의 or을 제거해줌 -->
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR"> <!-- 맨앞에 or을 추가 -->
+					<choose>
+						<when test="type == 'T'.toString()">
+							title like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'C'.toString()">
+							content like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'W'.toString()">
+							writer like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
+	
+			<select id="getListWithPaging" resultType="jje.happy.vo.BoardVO">
   <![CDATA[
   select 
     bno, title, content, writer, regdate, updatedate
@@ -56,10 +77,24 @@
         rownum rn, bno, title, content, writer, regdate, updatedate 
       from 
         happy_board
-      where rownum <= #{pageNum} * #{amount}
+      where 
+  ]]>
+		<include refid="criteria"></include> 
+      
+  <![CDATA[    
+      rownum <= #{pageNum} * #{amount}
       )
-      where rn > (#{pageNum}-1) * #{amount}
-      ]]>
-	</select>	
+  where rn > (#{pageNum} -1) * #{amount}   
+  ]]>
+	</select>
+	
+		<select id="getTotalCount" resultType="int">
+		select count(*) from happy_board where 
+		
+		<include refid="criteria"></include> 
+		
+		bno > 0
+		
+	</select>
 
 </mapper>

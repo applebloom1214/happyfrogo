@@ -22,12 +22,10 @@
       <div class="panel-body">
 
       <form role="form" action="/happy/modify" method="post">
-      
-      <!--  
         <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum }"/>'>
         <input type='hidden' name='amount' value='<c:out value="${cri.amount }"/>'>
 	    <input type='hidden' name='type' value='<c:out value="${cri.type }"/>'>
-		<input type='hidden' name='keyword' value='<c:out value="${cri.keyword }"/>'>-->
+		<input type='hidden' name='keyword' value='<c:out value="${cri.keyword }"/>'>
       
  
 <div class="form-group">
@@ -106,17 +104,18 @@ $(document).ready(function() {
 	    }else if(operation === 'list'){
 	      //move to list
 	      formObj.attr("action", "/happy/list").attr("method","get");
-	      formObj.empty(); // 조회 페이지에서 가져온 bno를 비운다
+	      
 	        
-	    //  var pageNumTag = $("input[name='pageNum']").clone();
-	   //   var amountTag = $("input[name='amount']").clone();
-	    //  var keywordTag = $("input[name='keyword']").clone();
-	     // var typeTag = $("input[name='type']").clone();      
-	            
-	    //  formObj.append(pageNumTag);
-	     // formObj.append(amountTag);
-	     // formObj.append(keywordTag);
-	     // formObj.append(typeTag);	       
+	      var pageNumTag = $("input[name='pageNum']").clone();
+	      var amountTag = $("input[name='amount']").clone();
+	      var keywordTag = $("input[name='keyword']").clone();
+	      var typeTag = $("input[name='type']").clone();      
+	        
+	     formObj.empty(); // 조회 페이지에서 가져온 bno과 필요없는 내용을 비운다.
+	      formObj.append(pageNumTag);
+	      formObj.append(amountTag);
+	      formObj.append(keywordTag);
+	      formObj.append(typeTag);	       
 	    }
 	    
 	    formObj.submit();
