@@ -1,5 +1,57 @@
+// 자바의 클래스처럼 자바 스크림트식 클래스인 모듈 패턴 구성
 console.log("Reply Module........");
+var replyService = (function(){
+	
+	function add(reply, callback, error) {
+		console.log("add reply...............");
 
+		$.ajax({
+			type : 'post',
+			url : '/replies/new',
+			data : JSON.stringify(reply), // JSON을 STRING IFY(~화시키다) 으로 만듬
+			contentType : "application/json; charset=utf-8",
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+	}//add
+	
+	
+	function getList(param, callback, error) {
+	
+			var bno = param.bno;
+		var page = param.page || 1; // || 연산자 param.page가 null이면 1로 설정한다.
+	
+			$.getJSON("/replies/pages/" + bno + "/" + page + ".json",
+					function(data) {
+						if (callback) {
+							callback(data);
+						}
+					}).fail(function(xhr, status, err) {
+				if (error) {
+					error();
+				}
+			});
+		}//getlist
+	
+	
+	
+	return{
+		add :add,
+		getList : getList
+	};
+	
+})();
+// 즉시 실행 함수 = 함수 안쪽의 결과가 바깥쪽의 변수에 할당됨.
+
+/*
 var replyService = (function() {
 
 	function add(reply, callback, error) {
@@ -182,4 +234,4 @@ var replyService = (function() {
 		displayTime : displayTime
 	};
 
-})();
+})();*/
