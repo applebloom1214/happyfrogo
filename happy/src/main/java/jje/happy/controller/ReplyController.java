@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jje.happy.service.ReplyService;
 import jje.happy.vo.Criteria;
+import jje.happy.vo.ReplyPageDTO;
 import jje.happy.vo.ReplyVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -43,16 +44,20 @@ public class ReplyController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@GetMapping(value = "/pages/{bno}/{page}", produces = { MediaType.APPLICATION_XML_VALUE,
-			MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<List<ReplyVO>> getList(@PathVariable("page") int page, @PathVariable("bno") Long bno) {
+	
+	  @GetMapping(value = "/pages/{bno}/{page}", produces = {
+	  MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
+	  public ResponseEntity<ReplyPageDTO> getList(@PathVariable("page") int
+	  page, @PathVariable("bno") Long bno) {
+	  
+	  Criteria cri = new Criteria(page, 10);
+	  
+	  log.info("get Reply List bno: " + bno);
+	  
+	  log.info("cri:" + cri);
+	  
+	  return new ResponseEntity<>(service.getListPage(cri, bno), HttpStatus.OK); }
 
-		log.info("getList.................");
-		Criteria cri = new Criteria(163842, 1);
-		log.info(cri);
-
-		return new ResponseEntity<>(service.getList(cri, bno), HttpStatus.OK);
-	}
 
 	@GetMapping(value = "/{rno}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public ResponseEntity<ReplyVO> get(@PathVariable("rno") Long rno) {
@@ -95,19 +100,6 @@ public class ReplyController {
 	 * 
 	 */
 
-	/*
-	 * @GetMapping(value = "/pages/{bno}/{page}", produces = {
-	 * MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
-	 * public ResponseEntity<ReplyPageDTO> getList(@PathVariable("page") int
-	 * page, @PathVariable("bno") Long bno) {
-	 * 
-	 * Criteria cri = new Criteria(page, 10);
-	 * 
-	 * log.info("get Reply List bno: " + bno);
-	 * 
-	 * log.info("cri:" + cri);
-	 * 
-	 * return new ResponseEntity<>(service.getListPage(cri, bno), HttpStatus.OK); }
-	 */
+
 
 }

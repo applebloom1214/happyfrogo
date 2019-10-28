@@ -24,5 +24,10 @@
 	<context:component-scan base-package="jje.happy.controller" />
 	<context:component-scan base-package="jje.happy.exception"/>
 	
+		<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+
+	</beans:bean>
+	
 	
 </beans:beans>

@@ -3,6 +3,7 @@ package jje.happy.service;
 import java.util.List;
 
 import jje.happy.vo.Criteria;
+import jje.happy.vo.ReplyPageDTO;
 import jje.happy.vo.ReplyVO;
 
 
@@ -19,6 +20,6 @@ public interface ReplyService {
 
 	public List<ReplyVO> getList(Criteria cri, Long bno);
 	
-//	public ReplyPageDTO getListPage(Criteria cri, Long bno);
+	public ReplyPageDTO getListPage(Criteria cri, Long bno);
 
 }

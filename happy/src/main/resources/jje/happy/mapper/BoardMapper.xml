@@ -67,26 +67,27 @@
 	</sql>
 	
 	
-			<select id="getListWithPaging" resultType="jje.happy.vo.BoardVO">
+<select id="getListWithPaging" resultType="jje.happy.vo.BoardVO">
   <![CDATA[
   select 
-    bno, title, content, writer, regdate, updatedate
+    bno, title, content, writer, regdate, updatedate, replycnt
   from 
       (
       select /*+INDEX_DESC(happy_board pk_board) */
-        rownum rn, bno, title, content, writer, regdate, updatedate 
+        rownum rn, bno, title, content, writer, regdate, updatedate, replycnt 
       from 
         happy_board
       where 
   ]]>
-		<include refid="criteria"></include> 
+
+  <include refid="criteria"></include> 
       
   <![CDATA[    
       rownum <= #{pageNum} * #{amount}
       )
   where rn > (#{pageNum} -1) * #{amount}   
   ]]>
-	</select>
+  </select>
 	
 		<select id="getTotalCount" resultType="int">
 		select count(*) from happy_board where 
@@ -96,5 +97,10 @@
 		bno > 0
 		
 	</select>
+	
+	  <update id="updateReplyCnt">
+    update happy_board set replycnt = replycnt + #{amount} where bno = #{bno}
+  </update>  
+	
 
 </mapper>

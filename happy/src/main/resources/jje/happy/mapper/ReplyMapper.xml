@@ -37,26 +37,15 @@
 	</update>
 
 
- 	<select id="getListWithPaging"
-		resultType="jje.happy.vo.ReplyVO">
-
-		select rno, bno, reply, replyer, replyDate, updatedate
-		from happy_reply
-		where bno = #{bno}
-		order by rno asc
-
-	</select>
-	 
-<!--
-<select id="getListWithPaging" resultType="org.zerock.domain.ReplyVO">
+<select id="getListWithPaging" resultType="jje.happy.vo.ReplyVO">
 
   <![CDATA[
  select  rno, bno, reply, replyer, replydate, updatedate
  from 
    (
-    select /*+INDEX(tbl_reply idx_reply) */ 
+    select /*+INDEX(happy_reply idx_reply) */ 
       rownum rn,  rno, bno, reply, replyer, replyDate, updatedate
-    from tbl_reply
+    from happy_reply
     where bno =  #{bno}
     and rno > 0
     and rownum <= #{cri.pageNum} * #{cri.amount}
@@ -64,13 +53,12 @@
 ]]>
 
 </select>
-
+	
 
 <select id="getCountByBno" resultType="int">
 <![CDATA[
-select count(rno) from tbl_reply where bno = #{bno}
+select count(rno) from happy_reply where bno = #{bno}
 ]]>
-</select>
+</select>	
 
--->
 </mapper>

@@ -20,4 +20,6 @@ public interface ReplyMapper {
 	public List<ReplyVO> getListWithPaging(
 	@Param("cri") Criteria cri, // @param mybatis에서 #{} 형식으로 파라미터로써 사용할 수 있다.  
 	@Param("bno") Long bno);
+	
+	public int getCountByBno(Long bno);
 }
