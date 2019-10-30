@@ -1,10 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>    
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
+<style type="text/css">
+
+#sign,#login{
+  margin-top: 10px;
+}
+
+
+</style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,6 +58,11 @@
             <div class="navbar-header">
                 
                 <a class="navbar-brand" href="index.html">Happy Frog v0.0</a>
+         
+          <button type="submit" class="btn btn-danger" id="sign">등록</button>
+          <button type="reset" class="btn btn-success" id="login">로그인</button>
+          <button type="reset" class="btn btn-success" id="login">로그아웃</button>   
+
             </div>
            
            

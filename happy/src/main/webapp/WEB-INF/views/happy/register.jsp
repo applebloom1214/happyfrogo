@@ -2,6 +2,7 @@
   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@include file="../includes/header2.jsp"%>
 
 
@@ -66,6 +67,9 @@
       <div class="panel-body">
 
         <form role="form" action="/happy/register" method="post">
+        
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>    
+        
           <div class="form-group">
             <label>제목</label> <input class="form-control" name='title'>
           </div>
@@ -76,7 +80,8 @@
           </div>
 
           <div class="form-group">
-            <label>글쓴이</label> <input class="form-control" name='writer'>
+            <label>글쓴이</label> <input class="form-control" name='writer' 
+                value='<sec:authentication property="principal.username"/>' readonly="readonly">
           </div>
           <button type="submit" class="btn btn-danger">등록</button>
           <button type="reset" class="btn btn-success">초기화</button>
@@ -174,6 +179,9 @@ $(document).ready(function(e){
 	    return true;
 	  }//checkExtension
 	  
+	  var csrfHeaderName ="${_csrf.headerName}"; 
+	  var csrfTokenValue="${_csrf.token}";
+	  
   $("input[type='file']").change(function(e){
 
 	    var formData = new FormData();
@@ -192,14 +200,18 @@ $(document).ready(function(e){
 	    }
 	    
 	    $.ajax({
-	      url: '/uploadAjaxAction',
-	      processData: false, 
-	      contentType: false,data: 
-	      formData,type: 'POST',
-	      dataType:'json',
-	        success: function(result){
-	          console.log(result); 
-			 showUploadResult(result); //업로드 결과 처리 함수 
+	    	 url: '/uploadAjaxAction',
+	         processData: false, 
+	         contentType: false,
+	         beforeSend: function(xhr) {
+	             xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+	         },
+	         data:formData,
+	         type: 'POST',
+	         dataType:'json',
+	           success: function(result){
+	             console.log(result); 
+	   		  showUploadResult(result); //업로드 결과 처리 함수 
 
 	      }
 	    }); //$.ajax
@@ -257,16 +269,20 @@ $(document).ready(function(e){
 	    var targetLi = $(this).closest("li");
 	    
 	    $.ajax({
-	      url: '/deleteFile',
-	      data: {fileName: targetFile, type:type},
-	      dataType:'text',
-	      type: 'POST',
-	        success: function(result){
-	           alert(result);
-	           
-	           targetLi.remove();
-	         }
-	    }); //$.ajax
+	        url: '/deleteFile',
+	        data: {fileName: targetFile, type:type},
+	        beforeSend: function(xhr) {
+	            xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+	        },
+
+	        dataType:'text',
+	        type: 'POST',
+	          success: function(result){
+	             alert(result);
+	             
+	             targetLi.remove();
+	           }
+	      }); //$.ajax
 	   });//.uploadResult event
 });
 

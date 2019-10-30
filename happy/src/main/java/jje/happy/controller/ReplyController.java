@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class ReplyController {
 	// consumes = 외부에서 받을 데이터 형식 produces = 서버에서 리턴할 데이터 형식
 	// responseentity 데이터와 함께 http 헤더의 상태 메세지 등을 같이 전달하는 용도로 사용
 	// requestbody 전달된 요청(request)의 내용(body)을 이용해서 해당파라미터의 타입으로 변환을 요구
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/new", consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> create(@RequestBody ReplyVO vo) {
 
@@ -67,10 +69,13 @@ public class ReplyController {
 		return new ResponseEntity<>(service.get(rno), HttpStatus.OK);
 	}
 
-	@DeleteMapping(value = "/{rno}", produces = { MediaType.TEXT_PLAIN_VALUE })
-	public ResponseEntity<String> remove(@PathVariable("rno") Long rno) {
+	@PreAuthorize("principal.username == #vo.replyer")
+	@DeleteMapping("/{rno}")
+	public ResponseEntity<String> remove(@RequestBody ReplyVO vo, @PathVariable("rno") Long rno) {
 
 		log.info("remove: " + rno);
+
+		log.info("replyer: " + vo.getReplyer());
 
 		return service.remove(rno) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -78,6 +83,7 @@ public class ReplyController {
 	}
 	
 	//@RequestBody로 처리되는 데이터는 일반 파라미터나 @PathVariable 파라미터를 처리할 수 없기에 직접 처리해야 한다.
+	  @PreAuthorize("principal.username == #vo.replyer")
 	  @RequestMapping(method = { RequestMethod.PUT, RequestMethod.PATCH }, value =
 	  "/{rno}", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE }) 
 	  public ResponseEntity<String> modify( @RequestBody ReplyVO vo, @PathVariable("rno") Long rno) {
@@ -91,14 +97,7 @@ public class ReplyController {
 	  
 	  }
 
-	/*
-	 * 
-	 * 
-	 * 
-
-	 * 
-	 * 
-	 */
+	
 
 
 

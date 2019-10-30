@@ -2,6 +2,7 @@
   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@include file="../includes/header2.jsp"%>
 
 
@@ -22,6 +23,7 @@
       <div class="panel-body">
 
       <form role="form" action="/happy/modify" method="post">
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>  
         <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum }"/>'>
         <input type='hidden' name='amount' value='<c:out value="${cri.amount }"/>'>
 	    <input type='hidden' name='type' value='<c:out value="${cri.type }"/>'>
@@ -65,8 +67,16 @@
 
           
 <!-- data-xxxx 커스텀 속성 -->
+<sec:authentication property="principal" var="pinfo"/>
+
+<sec:authorize access="isAuthenticated()">
+
+<c:if test="${pinfo.username eq board.writer}">
+
   <button type="submit" data-oper='modify' class="btn btn-default">Modify</button>
   <button type="submit" data-oper='remove' class="btn btn-danger">Remove</button>
+</c:if>
+</sec:authorize>
   <button type="submit" data-oper='list' class="btn btn-info">List</button>
 </form>
 
@@ -300,6 +310,9 @@ $(document).ready(function() {
 		    return true;
 		  }//checkExtension
 		  
+		  var csrfHeaderName ="${_csrf.headerName}"; 
+		  var csrfTokenValue="${_csrf.token}";
+		  
 	  $("input[type='file']").change(function(e){
 
 		    var formData = new FormData();
@@ -318,14 +331,17 @@ $(document).ready(function() {
 		    }
 		    
 		    $.ajax({
-		      url: '/uploadAjaxAction',
-		      processData: false, 
-		      contentType: false,data: 
-		      formData,type: 'POST',
-		      dataType:'json',
-		        success: function(result){
-		          console.log(result); 
-				  showUploadResult(result); //업로드 결과 처리 함수 
+		    	 url: '/uploadAjaxAction',
+		         processData: false, 
+		         contentType: false,data: 
+		         formData,type: 'POST',
+		         beforeSend: function(xhr) {
+		             xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+		         },
+		         dataType:'json',
+		           success: function(result){
+		             console.log(result); 
+		   		  showUploadResult(result); //업로드 결과 처리 함수 
 
 		      }
 		    }); //$.ajax
