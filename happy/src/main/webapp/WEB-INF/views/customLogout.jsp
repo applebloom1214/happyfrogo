@@ -47,7 +47,7 @@
 			<div class="col-md-4 col-md-offset-4">
 				<div class="login-panel panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Logout Page</h3>
+						<h3 class="panel-title"><img src="/resources/img/frog.png" width="40px" height="40px">정말 로그아웃하시겠습니까 ?</h3>
 					</div>
 					<div class="panel-body">
 						<form role="form" method='post' action="/customLogout">

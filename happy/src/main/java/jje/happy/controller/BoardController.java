@@ -35,6 +35,16 @@ public class BoardController {
 
 	private BoardService service; // 자동 주입됨.
 
+	@GetMapping("/sign")
+	public void sign() {
+		
+	}
+	
+	@GetMapping("/login")
+	public void login() {
+		
+	}
+	
 	@GetMapping("/list")
 	public void list(Criteria cri, Model model) {
 

@@ -8,8 +8,8 @@
 
 <style type="text/css">
 
-#sign,#login{
-  margin-top: 10px;
+#header{
+  margin-top: 8px;
 }
 
 
@@ -56,16 +56,73 @@
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-                
+                <form role="form" method='post' action="/customLogout">
+                <img src="/resources/img/frog.png" width="40px" height="40px" id="header">
                 <a class="navbar-brand" href="index.html">Happy Frog v0.0</a>
          
-          <button type="submit" class="btn btn-danger" id="sign">등록</button>
-          <button type="reset" class="btn btn-success" id="login">로그인</button>
-          <button type="reset" class="btn btn-success" id="login">로그아웃</button>   
-
+          <button type="submit" data-oper='sign' class="btn btn-danger" id="header">등록</button>
+          <sec:authorize access="isAnonymous()">
+          <button type="submit" data-oper='login' class="btn btn-success" id="header">로그인</button>
+          </sec:authorize>
+          <sec:authorize access="isAuthenticated()">
+          
+          <button type="submit" data-oper='logout' class="btn btn-success" id="header">로그아웃</button>
+          <input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+          </sec:authorize>
+          
+          </form>
             </div>
            
            
         </nav>
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript">
+
+$(document).ready(function(){
+	
+	var formObj = $("form");
+	
+	  $('button#header').on("click", function(e){
+		    
+		    e.preventDefault(); // 모든 버튼의 summit 기본 동작을 막음
+		    
+		    var operation = $(this).data("oper");
+		    // this = 메소드를 호출한 객체 즉 button의 data() 함수로 value를 가져온다
+		    
+		    console.log(operation);
+		    
+		    if(operation === 'sign'){
+		      formObj.attr("action", "/happy/sign");
+		      //버튼의 액션 속성을 바꿔준다
+		      
+		    }else if(operation === 'login'){
+		      //move to list
+		      formObj.attr("action", "/happy/login");
+		             
+		    }else if(operation === 'logout'){
+		    	//formObj.attr("action", "/logout");
+		    	formObj.attr("action", "/customLogout");
+	        }
+		    
+		    formObj.submit();
+		  });
+	<%--
+	$("#sign").on("click",function(e){
+		console.log("=======");
+		location.href = "/happy/sign";
+		
+	});//sign 버튼 이벤트		
+	
+	$("#login").on("click",function(e){
+		console.log("=======");
+		location.href = "/happy/login";
+		
+	});//sign 버튼 이벤트	 --%>
+	
+});
+
+
+
+</script>

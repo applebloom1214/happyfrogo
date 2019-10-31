@@ -251,7 +251,10 @@
 
 									searchForm.submit();
 
-								});
+								});//searchForm button
+								
+						
+								
 
 					});
 </script>

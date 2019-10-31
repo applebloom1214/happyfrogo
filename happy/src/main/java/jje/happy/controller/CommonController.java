@@ -5,8 +5,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jje.happy.vo.BoardVO;
+import jje.happy.vo.Criteria;
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -21,7 +25,7 @@ public class CommonController {
 		model.addAttribute("msg", "Access Denied");
 	}
 
-	@GetMapping("/customLogin")
+	@GetMapping("/login")
 	public void loginInput(String error, String logout, Model model) {
 
 		log.info("error: " + error);
@@ -36,6 +40,7 @@ public class CommonController {
 		}
 	}
 
+
 	@GetMapping("/customLogout")
 	public void logoutGET() {
 
@@ -43,9 +48,10 @@ public class CommonController {
 	}
 
 	@PostMapping("/customLogout")
-	public void logoutPost() {
+	public String logoutPost() {
 
-		log.info("post custom logout");
+		log.warn("post custom logout");
+		return "redirect:/happy/list";
 	}
 
 }

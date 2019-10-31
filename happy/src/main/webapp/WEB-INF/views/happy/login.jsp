@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>    
 <!DOCTYPE html>
 <html>
 
@@ -47,23 +49,27 @@
                         
                     </div>
                     <div class="panel-body">
-                        <form role="form">
+                        <form role="form" method='post' action="/login">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="ID" name="id" type="text" autofocus>
+                                    <input class="form-control" placeholder="userid"
+										name="username" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <input class="form-control" placeholder="Password"
+										name="password" type="password" value="">
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                        <input name="remember" type="checkbox">Remember Me
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="../list" class="btn btn-lg btn-success btn-block">로그인</a>
+                                <a href="/happy/list" class="btn btn-lg btn-success btn-block">로그인</a>
                                 <a href="sign" class="btn btn-lg btn-warning btn-block">회원가입</a>
                             </fieldset>
+                            <input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
                         </form>
                     </div>
                 </div>
@@ -82,6 +88,20 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/resources/dist/js/sb-admin-2.js"></script>
+    
+      <script>
+  
+  
+  
+  
+  $(".btn-success").on("click", function(e){
+    
+    e.preventDefault();
+    $("form").submit();
+    
+  });
+  
+  </script>
 
 </body>
 

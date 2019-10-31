@@ -66,8 +66,8 @@
 								</div>
 
 								<!-- Change this to a button or input when using this as a form -->
-								<a href="../list" class="btn btn-lg btn-danger btn-block">가입</a>
-								<a href="index" class="btn btn-lg btn-success btn-block">돌아가기</a>
+								<a href="#" class="btn btn-lg btn-danger btn-block">가입</a>
+								<a href="/" class="btn btn-lg btn-success btn-block">돌아가기</a>
 							</fieldset>
 						</form>
 					</div>
