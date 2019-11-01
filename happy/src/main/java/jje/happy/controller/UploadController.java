@@ -44,17 +44,6 @@ public class UploadController {
 		log.info("upload form");
 	}
 
-	// @PostMapping("/uploadFormAction")
-	// public void uploadFormPost(MultipartFile[] uploadFile, Model model) {
-	//
-	// for (MultipartFile multipartFile : uploadFile) {
-	//
-	// log.info("-------------------------------------");
-	// log.info("Upload File Name: " +multipartFile.getOriginalFilename());
-	// log.info("Upload File Size: " +multipartFile.getSize());
-	//
-	// }
-	// }
 
 	@PostMapping("/uploadFormAction")
 	public void uploadFormPost(MultipartFile[] uploadFile, Model model) {
@@ -84,38 +73,7 @@ public class UploadController {
 		log.info("upload ajax");
 	}
 
-	// @PostMapping("/uploadAjaxAction")
-	// public void uploadAjaxPost(MultipartFile[] uploadFile) {
-	//
-	// log.info("update ajax post.........");
-	//
-	// String uploadFolder = "C:\\upload";
-	//
-	// for (MultipartFile multipartFile : uploadFile) {
-	//
-	// log.info("-------------------------------------");
-	// log.info("Upload File Name: " + multipartFile.getOriginalFilename());
-	// log.info("Upload File Size: " + multipartFile.getSize());
-	//
-	// String uploadFileName = multipartFile.getOriginalFilename();
-	//
-	// // IE has file path
-	// uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") +
-	// 1);
-	// log.info("only file name: " + uploadFileName);
-	//
-	// File saveFile = new File(uploadFolder, uploadFileName);
-	//
-	// try {
-	//
-	// multipartFile.transferTo(saveFile);
-	// } catch (Exception e) {
-	// log.error(e.getMessage());
-	// } // end catch
-	//
-	// } // end for
-	//
-	// }
+	
 
 	private String getFolder() {
 
@@ -128,90 +86,7 @@ public class UploadController {
 		return str.replace("-", File.separator);
 	}
 
-	// @PostMapping("/uploadAjaxAction")
-	// public void uploadAjaxPost(MultipartFile[] uploadFile) {
-	//
-	// String uploadFolder = "C:\\upload";
-	//
-	// // make folder --------
-	// File uploadPath = new File(uploadFolder, getFolder());
-	// log.info("upload path: " + uploadPath);
-	//
-	// if (uploadPath.exists() == false) {
-	// uploadPath.mkdirs();
-	// }
-	// // make yyyy/MM/dd folder
-	//
-	// for (MultipartFile multipartFile : uploadFile) {
-	//
-	// log.info("-------------------------------------");
-	// log.info("Upload File Name: " + multipartFile.getOriginalFilename());
-	// log.info("Upload File Size: " + multipartFile.getSize());
-	//
-	// String uploadFileName = multipartFile.getOriginalFilename();
-	//
-	// // IE has file path
-	// uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") +
-	// 1);
-	// log.info("only file name: " + uploadFileName);
-	//
-	// // File saveFile = new File(uploadFolder, uploadFileName);
-	// File saveFile = new File(uploadPath, uploadFileName);
-	//
-	// try {
-	//
-	// multipartFile.transferTo(saveFile);
-	// } catch (Exception e) {
-	// log.error(e.getMessage());
-	// } // end catch
-	//
-	// } // end for
-	//
-	// }
-
-	// @PostMapping("/uploadAjaxAction")
-	// public void uploadAjaxPost(MultipartFile[] uploadFile) {
-	//
-	// String uploadFolder = "C:\\upload";
-	//
-	// // make folder --------
-	// File uploadPath = new File(uploadFolder, getFolder());
-	// log.info("upload path: " + uploadPath);
-	//
-	// if (uploadPath.exists() == false) {
-	// uploadPath.mkdirs();
-	// }
-	// // make yyyy/MM/dd folder
-	//
-	// for (MultipartFile multipartFile : uploadFile) {
-	//
-	// log.info("-------------------------------------");
-	// log.info("Upload File Name: " + multipartFile.getOriginalFilename());
-	// log.info("Upload File Size: " + multipartFile.getSize());
-	//
-	// String uploadFileName = multipartFile.getOriginalFilename();
-	//
-	// // IE has file path
-	// uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") +
-	// 1);
-	// log.info("only file name: " + uploadFileName);
-	//
-	// UUID uuid = UUID.randomUUID();
-	//
-	// uploadFileName = uuid.toString() + "_" + uploadFileName;
-	//
-	// File saveFile = new File(uploadPath, uploadFileName);
-	//
-	// try {
-	//
-	// multipartFile.transferTo(saveFile);
-	// } catch (Exception e) {
-	// log.error(e.getMessage());
-	// } // end catch
-	//
-	// } // end for
-	//
-	// }
+	
 
 	private boolean checkImageType(File file) {
 
@@ -228,58 +103,7 @@ public class UploadController {
 		return false;
 	}
 
-	// @PostMapping("/uploadAjaxAction")
-	// public void uploadAjaxPost(MultipartFile[] uploadFile) {
-	//
-	// String uploadFolder = "C:\\upload";
-	//
-	// // make folder --------
-	// File uploadPath = new File(uploadFolder, getFolder());
-	// log.info("upload path: " + uploadPath);
-	//
-	// if (uploadPath.exists() == false) {
-	// uploadPath.mkdirs();
-	// }
-	// // make yyyy/MM/dd folder
-	//
-	// for (MultipartFile multipartFile : uploadFile) {
-	//
-	// log.info("-------------------------------------");
-	// log.info("Upload File Name: " + multipartFile.getOriginalFilename());
-	// log.info("Upload File Size: " + multipartFile.getSize());
-	//
-	// String uploadFileName = multipartFile.getOriginalFilename();
-	//
-	// // IE has file path
-	// uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") +
-	// 1);
-	// log.info("only file name: " + uploadFileName);
-	//
-	// UUID uuid = UUID.randomUUID();
-	//
-	// uploadFileName = uuid.toString() + "_" + uploadFileName;
-	//
-	// try {
-	// File saveFile = new File(uploadPath, uploadFileName);
-	// multipartFile.transferTo(saveFile);
-	// // check image type file
-	// if (checkImageType(saveFile)) {
-	//
-	// FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" +
-	// uploadFileName));
-	//
-	// Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100,
-	// 100);
-	//
-	// thumbnail.close();
-	// }
-	//
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// } //end catch
-	// } // end for
-	//
-	// }
+	
 
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -367,124 +191,7 @@ public class UploadController {
 		return result;
 	}
 
-	// @GetMapping(value = "/download", produces =
-	// MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	// @ResponseBody
-	// public ResponseEntity<Resource> downloadFile(String fileName) {
-	//
-	// log.info("download file: " + fileName);
-	//
-	// Resource resource = new FileSystemResource("c:\\upload\\" + fileName);
-	//
-	// log.info("resource: " + resource);
-	//
-	// return null;
-	// }
-
-	// @GetMapping(value = "/download", produces =
-	// MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	// @ResponseBody
-	// public ResponseEntity<Resource> downloadFile(String fileName) {
-	//
-	// log.info("download file: " + fileName);
-	//
-	// Resource resource = new FileSystemResource("c:\\upload\\" + fileName);
-	//
-	// log.info("resource: " + resource);
-	//
-	// String resourceName = resource.getFilename();
-	//
-	// HttpHeaders headers = new HttpHeaders();
-	// try {
-	// headers.add("Content-Disposition",
-	// "attachment; filename=" + new String(resourceName.getBytes("UTF-8"),
-	// "ISO-8859-1"));
-	// } catch (UnsupportedEncodingException e) {
-	// e.printStackTrace();
-	// }
-	// return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
-	// }
-
-	// @GetMapping(value="/download" ,
-	// produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	// @ResponseBody
-	// public ResponseEntity<Resource>
-	// downloadFile(@RequestHeader("User-Agent")String userAgent, String fileName){
-	//
-	// Resource resource = new FileSystemResource("c:\\upload\\" + fileName);
-	//
-	// if(resource.exists() == false) {
-	// return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	// }
-	//
-	// String resourceName = resource.getFilename();
-	//
-	// HttpHeaders headers = new HttpHeaders();
-	// try {
-	//
-	// boolean checkIE = (userAgent.indexOf("MSIE") > -1 ||
-	// userAgent.indexOf("Trident") > -1);
-	//
-	// String downloadName = null;
-	//
-	// if (checkIE) {
-	// downloadName = URLEncoder.encode(resourceName, "UTF8").replaceAll("\\+", "
-	// ");
-	// } else {
-	// downloadName = new String(resourceName.getBytes("UTF-8"), "ISO-8859-1");
-	// }
-	//
-	// headers.add("Content-Disposition", "attachment; filename=" + downloadName);
-	//
-	// } catch (UnsupportedEncodingException e) {
-	// e.printStackTrace();
-	// }
-	//
-	// return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
-	// }
-
-	// @GetMapping(value="/download" ,
-	// produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	// @ResponseBody
-	// public ResponseEntity<Resource>
-	// downloadFile(@RequestHeader("User-Agent")String userAgent, String fileName){
-	//
-	// Resource resource = new FileSystemResource("c:\\upload\\" + fileName);
-	//
-	// if(resource.exists() == false) {
-	// return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	// }
-	//
-	// String resourceName = resource.getFilename();
-	//
-	// //remove UUID
-	// String resourceOriginalName =
-	// resourceName.substring(resourceName.indexOf("_")+1);
-	//
-	// HttpHeaders headers = new HttpHeaders();
-	// try {
-	//
-	// boolean checkIE = (userAgent.indexOf("MSIE") > -1 ||
-	// userAgent.indexOf("Trident") > -1);
-	//
-	// String downloadName = null;
-	//
-	// if(checkIE) {
-	// downloadName = URLEncoder.encode(resourceOriginalName,
-	// "UTF8").replaceAll("\\+", " ");
-	// }else {
-	// downloadName = new
-	// String(resourceOriginalName.getBytes("UTF-8"),"ISO-8859-1");
-	// }
-	//
-	// headers.add("Content-Disposition", "attachment; filename="+downloadName);
-	//
-	// } catch (UnsupportedEncodingException e) {
-	// e.printStackTrace();
-	// }
-	//
-	// return new ResponseEntity<Resource>(resource, headers,HttpStatus.OK);
-	// }
+	
 
 	@GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	@ResponseBody

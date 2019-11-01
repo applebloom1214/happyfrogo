@@ -31,11 +31,16 @@
           <label>Title</label> <input class="form-control" name='title'
             value='<c:out value="${board.title }"/>' readonly="readonly">
         </div>
+        
+         <div class="form-group" id="content">
+          
+        </div>
 
-        <div class="form-group">
+        <div class="form-group" contenteditable="true">
           <label>Text area</label>
-          <textarea class="form-control" rows="15" name='content'
+          <textarea class="form-control" rows="3" name='content'
             readonly="readonly"><c:out value="${board.content}" /></textarea>
+         
         </div>
 
         <div class="form-group">
@@ -82,10 +87,25 @@
 
 
 <style>
+
+@media (min-width: 320px) and (max-width: 500px) {
+
+#content img{
+ max-width: 450px;
+ max-height: 450px;
+}
+
+}
+
+
+#content img{
+
+}
 .uploadResult {
   width:100%;
   background-color: gray;
 }
+
 .uploadResult ul{
   display:flex;
   flex-flow: row;
@@ -207,6 +227,22 @@
                 <input class="form-control" name='replyer' value='replyer'>
               </div>
               <div class="form-group">
+                <label>평점</label> 
+                <select class="form-control">
+	  <option>☆ 1</option>
+	  <option>★ 2</option>
+	  <option>★☆ 3</option>
+	  <option>★★ 4</option>
+	  <option>★★☆ 5</option>
+	  <option>★★★ 6</option>
+	  <option>★★★☆ 7</option>
+	  <option>★★★★ 8</option>
+	  <option>★★★★☆ 9</option>
+	  <option>★★★★★ 10</option>
+	</select>
+              </div>
+              
+              <div class="form-group">
                 <label>Reply Date</label> 
                 <input class="form-control" name='replyDate' value='2018-01-01 13:13'>
               </div>
@@ -269,7 +305,8 @@ function showList(page){
   	   +list[i].rno+"] "+list[i].replyer+"</strong>"; 
      str +="    <small class='pull-right text-muted'>"
          +replyService.displayTime(list[i].replyDate)+"</small></div>";
-     str +="    <p>"+list[i].reply+"</p></div></li>";
+     str +="<br><p>"+list[i].reply+"</p>";
+     str += "<p>★★★★★</p>"
    }
    
    replyUL.html(str);
@@ -542,17 +579,25 @@ $(document).ready(function(){
        console.log(arr);
        
        var str = "";
+       var str2 = "";
        
        $(arr).each(function(i, attach){
        
          //image type
          if(attach.fileType){
            var fileCallPath =  encodeURIComponent( attach.uploadPath+ "/s_"+attach.uuid +"_"+attach.fileName);
+           var fileCallPath2 =  encodeURIComponent( attach.uploadPath+ "/"+attach.uuid +"_"+attach.fileName);
            
            str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
            str += "<img src='/display?fileName="+fileCallPath+"'>";
            str += "</div>";
            str +"</li>";
+           
+           str2 += "<img src='/display?fileName="+fileCallPath2+"'>"+"<br>";
+           
+           
+           
+           
          }else{
              
            str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
@@ -564,7 +609,7 @@ $(document).ready(function(){
        });
        
        $(".uploadResult ul").html(str);
-       
+       $("#content").html(str2);
        
      });//end getjson
 
