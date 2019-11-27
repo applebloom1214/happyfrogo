@@ -23,6 +23,7 @@ import jje.happy.service.BoardService;
 import jje.happy.vo.BoardAttachVO;
 import jje.happy.vo.BoardVO;
 import jje.happy.vo.Criteria;
+import jje.happy.vo.MemberVO;
 import jje.happy.vo.PageDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -38,6 +39,25 @@ public class BoardController {
 	@GetMapping("/sign")
 	public void sign() {
 		
+	}
+	
+	@PostMapping("/sign")
+	public String sign(MemberVO member, Model model) {
+
+		log.info("==========================");
+
+		log.info("sign: " + member);
+		
+		if(service.idCheck(member) == 1) {
+			model.addAttribute("result","success");
+			service.sign(member);
+		}else{
+			model.addAttribute("result","fail");
+			
+		}
+		return "redirect:/happy/sign";
+		
+
 	}
 	
 	@GetMapping("/login")

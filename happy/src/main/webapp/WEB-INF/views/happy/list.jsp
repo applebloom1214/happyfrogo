@@ -5,7 +5,8 @@
 
 
 <%@include file="../includes/header2.jsp"%>
-<div class="weekly">
+<div class="searchi">
+ <br>
  주간 인기글 달 곳
 </div>
 

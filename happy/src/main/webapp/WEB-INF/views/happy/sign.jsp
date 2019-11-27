@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	
 <!DOCTYPE html>
 <html>
 
@@ -39,6 +42,10 @@
 
 <body>
 
+ 
+
+
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
@@ -51,22 +58,23 @@
 
 					</div>
 					<div class="panel-body">
-						<form role="form">
+						<form role="form" action="/happy/sign" method="post">
 							<fieldset>
 								<div class="form-group">
-									<input class="form-control" placeholder="ID" name="id" type="text" autofocus>
+									<input class="form-control"  id="userid" placeholder="ID" name="userid" type="text" autofocus>
 								</div>
 								<div class="form-group">
 									<input class="form-control" placeholder="Password"
-										name="password" type="password" value="">
+									id="userpw"	name="userpw" type="password">
 								</div>
 								<div class="form-group">
 									<input class="form-control" placeholder="Nickname"
-										name="nickname" type="text" value="">
+									id="userName"	name="userName" type="text">
+								      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>  		
 								</div>
-
+                                <input type="hidden" id="result" value="${param.result}"/>  	
 								<!-- Change this to a button or input when using this as a form -->
-								<a href="#" class="btn btn-lg btn-danger btn-block">가입</a>
+								<button class="btn btn-lg btn-danger btn-block" id="btnsign">가입</button>
 								<a href="/" class="btn btn-lg btn-success btn-block">돌아가기</a>
 							</fieldset>
 						</form>
@@ -76,8 +84,7 @@
 		</div>
 	</div>
 
-	<!-- jQuery -->
-	<script src="/resources/vendor/jquery/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 	<!-- Bootstrap Core JavaScript -->
 	<script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -87,6 +94,68 @@
 
 	<!-- Custom Theme JavaScript -->
 	<script src="/resources/dist/js/sb-admin-2.js"></script>
+	
+	
+
+<script type="text/javascript">
+	$(document).ready(	function() {
+		
+		var result = $('#result').val();
+		console.log(result);
+		if(result == 'success'){
+			alert('가입이 되었습니다 !');
+		}else if(result =="fail"){
+			alert('중복된 아이디입니다');
+		}
+		
+		
+		
+		
+		
+		var formObj = $("form");
+	
+
+$('#btnsign').on("click", function(e){
+		    
+	e.preventDefault(); // 모든 버튼의 summit 기본 동작을 막음
+		    var userid = $("#userid").val();
+		    if(userid.length != 0) userid = 1;
+		    userid = parseInt(userid) || 0;
+		    console.log(userid);
+		    
+		    var userpw = $("#userpw").val();
+		    if(userpw.length != 0) userpw = 3;
+		    userpw = parseInt(userpw) || 0;
+		    console.log(userpw);
+		    
+		    var userName = $("#userName").val();
+		    if(userName.length != 0) userName = 5;
+		    userName = parseInt(userName) || 0;
+		    console.log(userName);
+		   
+		    var testSign = userid + userpw + userName;
+		    console.log(testSign);
+		    
+		    if(testSign == 4){
+		    	alert('닉네임을 입력해주세요');
+		    	return;
+		    }else if(testSign ==6){
+		    	alert('패스워드를 입력해주세요');
+		    	return;
+		    }else if(testSign ==8){
+		    	alert('아이디를 입력해주세요');
+		    	return;
+		    }else if(testSign ==9){
+		    	formObj.submit();
+		    }else{
+		    	alert('항목을 모두 입력해주세요');
+		    	return;
+		    }
+		        
+		    });		 						
+
+					});//end
+</script>
 
 </body>
 

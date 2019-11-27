@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import jje.happy.vo.BoardVO;
 //import org.zerock.domain.Criteria;
 import jje.happy.vo.Criteria;
+import jje.happy.vo.MemberVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
@@ -104,16 +105,8 @@ public class BoardMapperTests {
 		list.forEach(board -> log.info(board));
 
 	}
-	*/
 	
-
-
-
-
-	
-
-
-	
+		
 	  @Test
 	  public void testSearch() {
 
@@ -125,6 +118,28 @@ public class BoardMapperTests {
 
 	    list.forEach(board -> log.info(board));
 	  }
+	*/
+	
+
+	
+	  @Test
+	  public void testSign() {
+
+	    MemberVO mem = new MemberVO();
+	    mem.setUserid("aaa");
+	    mem.setUserpw("1234");
+	    mem.setUserName("닉네임");
+
+	    mapper.insert(mem);
+	    mapper.insertAuth(mem);
+
+	  }
+
+
+	
+
+
+
 
 
 }

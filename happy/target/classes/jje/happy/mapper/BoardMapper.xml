@@ -13,6 +13,20 @@
 	</select>
 
 	<insert id="insert">
+		insert into happy_member(userid, userpw, username)
+		values (#{userid},#{userpw},#{userName})
+	</insert>
+	
+	<insert id="insertAuth">
+		insert into happy_member_auth (userid, auth)
+		values (#{userid},'ROLE_USER')
+	</insert>
+	
+    <select id="idCheck" resultType="jje.happy.vo.MemberVO">
+		select * from happy_member where userid = #{userid}
+	</select>
+	
+	<insert id="sign">
 		insert into happy_board (bno,title,content,writer)
 		values (seq_board.nextval, #{title}, #{content}, #{writer})
 	</insert>

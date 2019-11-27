@@ -60,8 +60,9 @@
                 <img src="/resources/img/frog.png" width="40px" height="40px" id="header">
                 <a class="navbar-brand" href="index.html">Happy Frog v0.0</a>
          
-          <button type="submit" data-oper='sign' class="btn btn-danger" id="header">등록</button>
+          
           <sec:authorize access="isAnonymous()">
+          <button type="submit" data-oper='sign' class="btn btn-danger" id="header">등록</button>
           <button type="submit" data-oper='login' class="btn btn-success" id="header">로그인</button>
           </sec:authorize>
           <sec:authorize access="isAuthenticated()">

@@ -3,6 +3,7 @@ package jje.happy.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +12,7 @@ import jje.happy.mapper.BoardMapper;
 import jje.happy.vo.BoardAttachVO;
 import jje.happy.vo.BoardVO;
 import jje.happy.vo.Criteria;
+import jje.happy.vo.MemberVO;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -25,6 +27,9 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Setter(onMethod_ = @Autowired)
 	private BoardAttachMapper attachMapper;
+	
+	 @Setter(onMethod_ = @Autowired)
+	  private PasswordEncoder pwencoder;
 
 	@Transactional
 	@Override
@@ -107,6 +112,27 @@ public class BoardServiceImpl implements BoardService {
 		log.info("get Attach list by bno" + bno);
 
 		return attachMapper.findByBno(bno);
+	}
+
+	@Transactional
+	@Override
+	public void sign(MemberVO mem) {
+		mapper.insert(mem);
+		mapper.insertAuth(mem);
+	}
+
+	@Override
+	public int idCheck(MemberVO mem) {
+		
+		mem.setUserpw(pwencoder.encode(mem.getUserpw()));
+		
+		if(mapper.idCheck(mem) != null) {
+			
+			return 0;
+		}else {
+			return 1;
+		}
+		
 	}
 
 }

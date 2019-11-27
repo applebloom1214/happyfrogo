@@ -5,11 +5,16 @@ import java.util.List;
 import jje.happy.vo.BoardAttachVO;
 import jje.happy.vo.BoardVO;
 import jje.happy.vo.Criteria;
+import jje.happy.vo.MemberVO;
 
 
 public interface BoardService {
 
 	public void register(BoardVO board);
+	
+	public int idCheck(MemberVO mem);
+	
+	public void sign(MemberVO mem);
 
 	public BoardVO get(Long bno);
 

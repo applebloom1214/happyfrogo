@@ -7,10 +7,14 @@ import org.apache.ibatis.annotations.Select;
 
 import jje.happy.vo.BoardVO;
 import jje.happy.vo.Criteria;
+import jje.happy.vo.MemberVO;
 //import jje.happy.vo.Criteria;
 
 public interface BoardMapper {
 
+	public void insert(MemberVO mem);
+	
+	public void insertAuth(MemberVO mem);
 	
 	public List<BoardVO> getList();
 	
@@ -29,4 +33,6 @@ public interface BoardMapper {
 	public int getTotalCount(Criteria cri);
 	
 	public void updateReplyCnt(@Param("bno") Long bno, @Param("amount") int amount);
+	
+	public MemberVO idCheck(MemberVO member);
 }
