@@ -6,8 +6,7 @@
 
 <%@include file="../includes/header2.jsp"%>
 <div class="searchi">
- <br>
- 주간 인기글 달 곳
+	<br> 주간 인기글 달 곳
 </div>
 
 <div class="row">
@@ -21,11 +20,19 @@
 <div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
+		<form id='sortForm' action="/happy/list" method='get'>
 			<div class="panel-heading">
 				Board List Page
+			
+			<input type='hidden' name='sort' value=''>
+			<button id='latest' type="button" class="btn btn-xs btn-primary">최신순</button>	
+			<button id='score' name='score' type="button" class="btn btn-xs btn-success">평점 TOP 10</button>
+			<button id='replycnt' name='replycnt' type="button" class="btn btn-xs btn-info">댓글 TOP 10</button>
+			
 				<button id='regBtn' type="button" class="btn btn-xs pull-right">Register
 					New Board</button>
 			</div>
+			</form>
 
 			<!-- /.panel-heading -->
 			<div class="panel-body">
@@ -43,11 +50,13 @@
 					<c:forEach items="${list}" var="board">
 						<tr>
 							<td><c:out value="${board.bno}" /></td>
-			
 
-						 	<td><a class='move' href='<c:out value="${board.bno}"/>'>
-                  <c:out value="${board.title}" /><b> [ <c:out value="${board.replyCnt}" /> ]</b>
-                  </a></td>
+
+							<td><a class='move' href='<c:out value="${board.bno}"/>'>
+									<c:out value="${board.title}" /><b> [ <c:out
+											value="${board.replyCnt}" /> ]
+								</b>
+							</a></td>
 
 							<td><c:out value="${board.writer}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd"
@@ -58,7 +67,7 @@
 					</c:forEach>
 				</table>
 
-			   	<div class='row'>
+				<div class='row'>
 					<div class="col-lg-12">
 
 						<form id='searchForm' action="/happy/list" method='get'>
@@ -80,8 +89,7 @@
 								<option value="TWC"
 									<c:out value="${pageMaker.cri.type eq 'TWC'?'selected':''}"/>>제목
 									or 내용 or 작성자</option>
-							</select> 
-							<input type='text' name='keyword'
+							</select> <input type='text' name='keyword'
 								value='<c:out value="${pageMaker.cri.keyword}"/>' /> <input
 								type='hidden' name='pageNum'
 								value='<c:out value="${pageMaker.cri.pageNum}"/>' /> <input
@@ -112,7 +120,7 @@
 						<c:if test="${pageMaker.next}">
 							<li class="paginate_button next"><a
 								href="${pageMaker.endPage +1 }">Next</a></li>
-						</c:if> 
+						</c:if>
 
 
 					</ul>
@@ -120,13 +128,15 @@
 				<!--  end Pagination -->
 			</div>
 
-  
+
 			<form id='actionForm' action="/happy/list" method='get'>
 				<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 				<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 
-				<input type='hidden' name='type' value='<c:out value="${ pageMaker.cri.type }"/>'> 
-				<input type='hidden' name='keyword' value='<c:out value="${ pageMaker.cri.keyword }"/>'> 
+				<input type='hidden' name='type'
+					value='<c:out value="${ pageMaker.cri.type }"/>'> <input
+					type='hidden' name='keyword'
+					value='<c:out value="${ pageMaker.cri.keyword }"/>'>
 
 
 			</form>
@@ -170,27 +180,27 @@
 
 
 <script type="text/javascript">
-	$(document).ready(	function() {
+	$(document)
+			.ready(
+					function() {
 
 						var result = '<c:out value="${result}"/>';
 
 						checkModal(result);
 
-						history.replaceState({}, null, null); 
+						history.replaceState({}, null, null);
 						// 뒤로가기 시 mordal이 뜨는 문제를 history 객체를 조작하여 해결
 
-					//Mordal 처리 메소드	
+						//Mordal 처리 메소드	
 						function checkModal(result) {
 
-						
 							if (result === '' || history.state) {
 								return;
 							}
-							
-			
 
 							if (parseInt(result) > 0) {
-								$(".modal-body").html("게시글 " + parseInt(result)
+								$(".modal-body").html(
+										"게시글 " + parseInt(result)
 												+ " 번이 등록되었습니다.");
 							}
 
@@ -198,15 +208,47 @@
 						}//checkModal
 
 						//등록 버튼을 눌렀을 대 이벤트
-						$("#regBtn").on("click", function() {
+						$("#regBtn").on("click", function(e) {
 
+							e.preventDefault();
 							self.location = "/happy/register";
-                            //self = 현재창 자신 window와 같음
+							//self = 현재창 자신 window와 같음
+						});
+						
+						//최신순 버튼 클릭 이벤트
+						$("#latest").on("click", function(e) {
+
+							e.preventDefault();
+							self.location = "/happy/list";
+							//self = 현재창 자신 window와 같음
+						});
+						
+						//평점순 버튼 클릭 이벤트
+						$("#score").on("click", function(e) {
+
+							var sortForm = $("#sortForm");
+							e.preventDefault();
+							sortForm.find("input[name='sort']")
+							.val($(this).attr("name"));
+							sortForm.submit();
+							
+						});
+						
+						//댓글순 버튼 클릭 이벤트
+						$("#replycnt").on("click", function(e) {
+
+							var sortForm = $("#sortForm");
+							e.preventDefault();
+							sortForm.find("input[name='sort']")
+							.val($(this).attr("name"));
+							sortForm.submit();
 						});
 
 						var actionForm = $("#actionForm");
 
-						$(".paginate_button a").on("click",function(e) {
+						$(".paginate_button a").on(
+								"click",
+								function(e) {
 
 									e.preventDefault();
 
@@ -217,7 +259,10 @@
 									actionForm.submit();
 								});
 
-						$(".move").on(	"click",function(e) {
+						$(".move")
+								.on(
+										"click",
+										function(e) {
 											e.preventDefault();
 											actionForm
 													.append("<input type='hidden' name='bno' value='"
@@ -232,7 +277,9 @@
 
 						var searchForm = $("#searchForm");
 
-						$("#searchForm button").on("click", function(e) {
+						$("#searchForm button").on(
+								"click",
+								function(e) {
 
 									if (!searchForm.find("option:selected")
 											.val()) {
@@ -253,9 +300,6 @@
 									searchForm.submit();
 
 								});//searchForm button
-								
-						
-								
 
 					});
 </script>

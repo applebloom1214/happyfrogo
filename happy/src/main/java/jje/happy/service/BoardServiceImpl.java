@@ -135,4 +135,20 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 
+	@Override
+	public List<BoardVO> getListScore(Criteria cri) {
+		// TODO Auto-generated method stub
+		log.info("get List with criteria: " + cri);
+
+		return mapper.getListWithPagingScore(cri);
+	}
+
+	@Override
+	public List<BoardVO> getListReplyCnt(Criteria cri) {
+		// TODO Auto-generated method stub
+		log.info("get List with criteria: " + cri);
+
+		return mapper.getListWithPagingReplyCnt(cri);
+	}
+
 }

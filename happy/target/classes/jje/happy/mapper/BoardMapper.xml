@@ -102,6 +102,37 @@
   where rn > (#{pageNum} -1) * #{amount}   
   ]]>
   </select>
+  
+  <select id="getListWithPagingScore" resultType="jje.happy.vo.BoardVO">
+ 
+select happy_board.*
+from(
+select rownum AS row_num, happy_board.*
+from(
+select happy_board.*
+from happy_board
+order by totalscore desc NULLS last
+)happy_board
+)happy_board
+where row_num between 1 and 10
+  
+  </select>
+  
+    <select id="getListWithPagingReplyCnt" resultType="jje.happy.vo.BoardVO">
+  
+select happy_board.*
+from(
+select rownum AS row_num, happy_board.*
+from(
+select happy_board.*
+from happy_board
+order by replycnt desc NULLS last
+)happy_board
+)happy_board
+where row_num between 1 and 10
+  </select>
+  
+  
 	
 		<select id="getTotalCount" resultType="int">
 		select count(*) from happy_board where 
@@ -116,5 +147,18 @@
     update happy_board set replycnt = replycnt + #{amount} where bno = #{bno}
   </update>  
 	
-
+   <update id="updatetotalscore">
+    update happy_board set totalscore = totalscore + #{score} where bno = #{bno}
+  </update> 
+  
+    <update id="updateaverscore">
+    update happy_board set averscore = totalscore / #{replycnt} where bno = #{bno}
+  </update> 
+  
+  		
+  		<select id="getReplyCnt" resultType="int">
+		select replycnt from happy_board where bno = #{bno}
+		
+	</select>		
+  		
 </mapper>

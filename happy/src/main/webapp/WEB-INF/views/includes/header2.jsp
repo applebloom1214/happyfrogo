@@ -58,7 +58,7 @@
             <div class="navbar-header">
                 <form role="form" method='post' action="/customLogout">
                 <img src="/resources/img/frog.png" width="40px" height="40px" id="header">
-                <a class="navbar-brand" href="index.html">Happy Frog v0.0</a>
+                <a class="navbar-brand" href="/">Happy Frog v0.0</a>
          
           
           <sec:authorize access="isAnonymous()">

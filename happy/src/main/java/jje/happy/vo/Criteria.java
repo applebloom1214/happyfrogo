@@ -17,6 +17,7 @@ public class Criteria { // 검색의 기준
   
   private String type; // 검색할 타입
   private String keyword; // 검색할 키워드
+  private String sort; // 정렬 키워드
 
   public Criteria() {
     this(1, 10);

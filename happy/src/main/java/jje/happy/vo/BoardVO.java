@@ -17,5 +17,8 @@ public class BoardVO {
   
   private int replyCnt;
   
+  private double averscore;
+  private Long totalscore;
+  
   private List<BoardAttachVO> attachList;
 }

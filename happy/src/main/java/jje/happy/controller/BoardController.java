@@ -69,15 +69,24 @@ public class BoardController {
 	public void list(Criteria cri, Model model) {
 
 		log.info("list: " + cri);
-		model.addAttribute("list", service.getList(cri));
-
+		
+		if(cri.getSort() == null) {
+			model.addAttribute("list", service.getList(cri));
+		}else if (cri.getSort().equals("score")) {
+			model.addAttribute("list", service.getListScore(cri));
+		}else if(cri.getSort().equals("replycnt")) {
+			model.addAttribute("list", service.getListReplyCnt(cri));
+		}
+		
 		int total = service.getTotal(cri);
 
 		log.info("total: " + total);
 
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
-	}
+	}//최신순
+	
+
 
 	@GetMapping({ "/get", "/modify" })
 	public void get(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri, Model model) {

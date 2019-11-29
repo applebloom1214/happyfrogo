@@ -34,7 +34,14 @@ public int register(ReplyVO vo) {
 
 	log.info("register......" + vo);
 
+	// 게시글의 리플 갯수 갱신
 	boardMapper.updateReplyCnt(vo.getBno(), 1);
+	// 게시물의 총평점 계산
+	boardMapper.updatetotalscore(vo.getBno(), vo.getScore());
+	// 게시플의 평균 평점 계산
+	
+	int replycnt = boardMapper.getReplyCnt(vo.getBno());
+	boardMapper.updateaverscore(vo.getBno(), replycnt);
 
 	return mapper.insert(vo);
 

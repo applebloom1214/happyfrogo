@@ -7,8 +7,8 @@
   
 	<insert id="insert">
 
-		insert into happy_reply (rno, bno, reply, replyer)
-		values (seq_reply.nextval, #{bno}, #{reply}, #{replyer})
+		insert into happy_reply (rno, bno, reply, replyer, score)
+		values (seq_reply.nextval, #{bno}, #{reply}, #{replyer}, #{score})
 
 	</insert>
 
@@ -40,11 +40,11 @@
 <select id="getListWithPaging" resultType="jje.happy.vo.ReplyVO">
 
   <![CDATA[
- select  rno, bno, reply, replyer, replydate, updatedate
+ select  rno, bno, reply, replyer, replydate, updatedate, score
  from 
    (
     select /*+INDEX(happy_reply idx_reply) */ 
-      rownum rn,  rno, bno, reply, replyer, replyDate, updatedate
+      rownum rn,  rno, bno, reply, replyer, replyDate, updatedate, score
     from happy_reply
     where bno =  #{bno}
     and rno > 0

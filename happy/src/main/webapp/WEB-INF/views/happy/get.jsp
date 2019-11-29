@@ -32,6 +32,12 @@
             value='<c:out value="${board.title }"/>' readonly="readonly">
         </div>
         
+         <div class="form-group">
+          <label>평점(10점 만점)</label> <input class="form-control" name='score'
+            value='<c:out value="${board.averscore }"/>' readonly="readonly">
+        </div>
+        
+        
          <div class="form-group" id="content">
           
         </div>
@@ -226,9 +232,10 @@
                 <label>Replyer</label> 
                 <input class="form-control" name='replyer' value='replyer' readonly="readonly">
               </div>
+         <c:if test="${pinfo.username != board.writer}">
               <div class="form-group">
                 <label>평점</label> 
-                <select class="form-control">
+                <select class="form-control" id='score'>
 	  <option value="1">☆ 1</option>
 	  <option value="2">★ 2</option>
 	  <option value="3">★☆ 3</option>
@@ -241,6 +248,7 @@
 	  <option value="10">★★★★★ 10</option>
 	</select>
               </div>
+              </c:if>
               
               <div class="form-group">
                 <label>Reply Date</label> 
@@ -299,14 +307,58 @@ function showList(page){
 	   return;
    }
    
+   
    for (var i = 0, len = list.length || 0; i < len; i++) {
+	   
+	   var score = list[i].score;
+	   console.log(score);
+	   var star = '';
+	   
+	   switch(score){
+	   
+	   case 1: 
+		   star = '☆';
+		   break;
+	   case 2: 
+		   star = '★';
+		   break;
+	   case 3: 
+		   star = '★☆';
+		   break;
+	   case 4: 
+		   star = '★★';
+		   break;		   
+	   case 5: 
+		   star = '★★☆';
+		   break;
+	   case 6: 
+		   star = '★★★';
+		   break;
+	   case 7: 
+		   star = '★★★☆';
+		   break;
+	   case 8: 
+		   star = '★★★★';
+		   break;
+	   case 9: 
+		   star = '★★★★☆';
+		   break;
+	   case 10: 
+		   star = '★★★★★';
+		   break;		   
+	   }
+	   
+	   console.log(star);
+	   
+
+	   
      str +="<li class='left clearfix' data-rno='"+list[i].rno+"'>";
      str +="  <div><div class='header'><strong class='primary-font'>["
   	   +list[i].rno+"] "+list[i].replyer+"</strong>"; 
      str +="    <small class='pull-right text-muted'>"
          +replyService.displayTime(list[i].replyDate)+"</small></div>";
      str +="<br><p>"+list[i].reply+"</p>";
-     str += "<p>★★★★★</p>"
+     str += "<p>"+star+"</p>"
    }
    
    replyUL.html(str);
@@ -381,6 +433,7 @@ var modalInputReply = modal.find("input[name='reply']");
 var modalInputReplyer = modal.find("input[name='replyer']");
 var modalInputReplyDate = modal.find("input[name='replyDate']");
 
+
 var modalModBtn = $("#modalModBtn");
 var modalRemoveBtn = $("#modalRemoveBtn");
 var modalRegisterBtn = $("#modalRegisterBtn");
@@ -418,10 +471,13 @@ $("#addReplyBtn").on("click", function(e){
 
 modalRegisterBtn.on("click",function(e){
     
+	var modalInputScore = $("#score option:selected").val();
+	
     var reply = {
           reply: modalInputReply.val(),
           replyer:modalInputReplyer.val(),
-          bno:bnoValue
+          bno:bnoValue,
+          score:modalInputScore
         };
     replyService.add(reply, function(result){
       

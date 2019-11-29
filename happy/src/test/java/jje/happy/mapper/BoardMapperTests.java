@@ -7,6 +7,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+
 import jje.happy.vo.BoardVO;
 //import org.zerock.domain.Criteria;
 import jje.happy.vo.Criteria;
@@ -15,6 +17,7 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class BoardMapperTests {
@@ -22,7 +25,40 @@ public class BoardMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private BoardMapper mapper;
 	
- /*
+	
+	@Test
+	public void testPaging() {
+
+		Criteria cri = new Criteria();
+		
+	   // 10개씩 3페이지 
+	    cri.setPageNum(3);
+	   cri.setAmount(10);
+
+
+		List<BoardVO> list = mapper.getListWithPaging(cri);
+
+		list.forEach(board -> log.info(board));
+
+	}
+	/*
+	@Test
+	public void testPaging() {
+
+		Criteria cri = new Criteria();
+		
+	   // 10개씩 3페이지 
+	    cri.setPageNum(3);
+	   cri.setAmount(10);
+
+
+		List<BoardVO> list = mapper.getListWithPagingScore(cri);
+
+		list.forEach(board -> log.info(board));
+
+	}
+	
+	
 	@Test
 	public void testGetList() {
 
@@ -30,6 +66,9 @@ public class BoardMapperTests {
 
 	}
 	
+	
+	
+	 
 	@Test
 	public void testInsert() {
 
@@ -90,21 +129,7 @@ public class BoardMapperTests {
 	}
 	
 	
-	@Test
-	public void testPaging() {
 
-		Criteria cri = new Criteria();
-		
-	   // 10개씩 3페이지 
-	    cri.setPageNum(3);
-	   cri.setAmount(10);
-
-
-		List<BoardVO> list = mapper.getListWithPaging(cri);
-
-		list.forEach(board -> log.info(board));
-
-	}
 	
 		
 	  @Test
@@ -118,7 +143,7 @@ public class BoardMapperTests {
 
 	    list.forEach(board -> log.info(board));
 	  }
-	*/
+	
 	
 
 	
@@ -135,7 +160,7 @@ public class BoardMapperTests {
 
 	  }
 
-
+*/
 	
 
 
