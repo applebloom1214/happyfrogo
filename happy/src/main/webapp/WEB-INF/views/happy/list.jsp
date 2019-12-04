@@ -6,7 +6,28 @@
 
 <%@include file="../includes/header2.jsp"%>
 <div class="searchi">
-	<br> 주간 인기글 달 곳
+	<br> 현 시각 미세먼지 정보
+	<p id="show"></p>
+	<div>
+	 <table>
+	  <tr>
+	  <th>원종동</th>
+	  <th>&nbsp;${finedust.value}</th>
+	  <th>&nbsp;${finedust.status}
+	   <c:if test="${finedust.status=='좋음'}">
+	   <img src="/resources/img/1.png" width="30px" height="30px" id="header">
+	   </c:if>
+	   <c:if test="${finedust.status=='보통'}">
+	   <img src="/resources/img/2.png" width="30px" height="30px" id="header">
+	   </c:if>
+	   <c:if test="${finedust.status=='나쁨'}">
+	   <img src="/resources/img/3.png" width="30px" height="30px" id="header">
+	   </c:if>
+	  
+	  </th>
+	  </tr>
+	 </table>
+	</div>
 </div>
 
 <div class="row">
@@ -206,6 +227,14 @@
 
 							$("#myModal").modal("show");
 						}//checkModal
+						
+						$.ajax({
+					        type: "get",
+					        url: "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=%EC%98%A4%EC%A0%95%EB%8F%99&dataTerm=month&pageNo=1&numOfRows=10&ServiceKey=HAHWbQC9svofCnpJsgZiBSeg4sU3LFoq5zELqy%2B2XkQUSKDU673yZd98nu99GDisXXSzXiY7cHcXjhu9IYRf2Q%3D%3D&ver=1.3",
+					        success:function(data){
+					            $('#show').html(JSON.stringify(data));
+					        }
+					    })
 
 						//등록 버튼을 눌렀을 대 이벤트
 						$("#regBtn").on("click", function(e) {

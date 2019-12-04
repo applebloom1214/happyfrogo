@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jje.happy.service.BoardService;
+import jje.happy.service.api;
 import jje.happy.vo.BoardAttachVO;
 import jje.happy.vo.BoardVO;
 import jje.happy.vo.Criteria;
@@ -82,6 +83,7 @@ public class BoardController {
 
 		log.info("total: " + total);
 
+		model.addAttribute("finedust", new api().getFinddust());
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
 	}//최신순
