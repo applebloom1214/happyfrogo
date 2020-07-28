@@ -5,8 +5,8 @@
 
 
 <%@include file="../includes/header2.jsp"%>
-<div class="searchi">
-	<br> 현 시각 미세먼지 정보
+<div class="searchi" align="center">
+	<br> <h4><b>현 시각 미세먼지 정보</b></h4>
 	<p id="show"></p>
 	<div>
 	 <table>
@@ -32,7 +32,7 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">Tables</h1>
+		<h1 class="page-header">유머 게시판</h1>
 	</div>
 	<!-- /.col-lg-12 -->
 </div>
@@ -43,15 +43,15 @@
 		<div class="panel panel-default">
 		<form id='sortForm' action="/happy/list" method='get'>
 			<div class="panel-heading">
-				Board List Page
+				정렬
 			
 			<input type='hidden' name='sort' value=''>
 			<button id='latest' type="button" class="btn btn-xs btn-primary">최신순</button>	
 			<button id='score' name='score' type="button" class="btn btn-xs btn-success">평점 TOP 10</button>
 			<button id='replycnt' name='replycnt' type="button" class="btn btn-xs btn-info">댓글 TOP 10</button>
-			
-				<button id='regBtn' type="button" class="btn btn-xs pull-right">Register
-					New Board</button>
+			<sec:authorize access="isAuthenticated()">
+				<button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>
+			</sec:authorize>	
 			</div>
 			</form>
 

@@ -28,7 +28,8 @@ public class api {
         	  if(line.contains("pm10Value")) {
         		  result = line;
         		  int start = result.indexOf(">");
-        		result = result.substring(start+1,start+3);
+        		  int end = line.indexOf("<", start);
+        		result = result.substring(start+1,end);
                   break;  
         	  }     
           }// 미세먼지 값 추출

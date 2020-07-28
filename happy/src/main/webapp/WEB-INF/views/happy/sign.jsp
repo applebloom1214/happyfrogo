@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 	
 <!DOCTYPE html>
 <html>
@@ -70,8 +71,9 @@
 								<div class="form-group">
 									<input class="form-control" placeholder="Nickname"
 									id="userName"	name="userName" type="text">
-								      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>  		
+								      		
 								</div>
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
                                 <input type="hidden" id="result" value="${param.result}"/>  	
 								<!-- Change this to a button or input when using this as a form -->
 								<button class="btn btn-lg btn-danger btn-block" id="btnsign">가입</button>

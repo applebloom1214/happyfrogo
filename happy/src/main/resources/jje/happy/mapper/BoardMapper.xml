@@ -111,7 +111,7 @@ select rownum AS row_num, happy_board.*
 from(
 select happy_board.*
 from happy_board
-order by totalscore desc NULLS last
+order by averscore desc NULLS last
 )happy_board
 )happy_board
 where row_num between 1 and 10

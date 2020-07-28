@@ -6,6 +6,11 @@
 <%@include file="../includes/header2.jsp"%>
 
 
+<meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
+
+
+
 <div class="row">
   <div class="col-lg-12">
     <h1 class="page-header">글등록</h1>
@@ -101,7 +106,7 @@
   <div class="col-lg-12">
     <div class="panel panel-default">
 
-      <div class="panel-heading">File Attach</div>
+      <div class="panel-heading">파일첨부</div>
       <!-- /.panel-heading -->
       <div class="panel-body">
         <div class="form-group uploadDiv">

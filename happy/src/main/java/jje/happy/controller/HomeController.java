@@ -37,21 +37,7 @@ public class HomeController {
 		return "home";
 	}
 	
-	/*
-	@GetMapping("/list")
-	public String list() {
-		return "list";
-	}
 	
-	@GetMapping("/happy/index")
-	public String index() {
-		return "/happy/index";
-	}
-	
-	@GetMapping("/happy/sign")
-	public String sign() {
-		return "/happy/sign";
-	}*/
 	
 	
 	

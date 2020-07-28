@@ -8,7 +8,7 @@
 
 <div class="row">
   <div class="col-lg-12">
-    <h1 class="page-header">Board Read</h1>
+    <h1 class="page-header">글읽기</h1>
   </div>
   <!-- /.col-lg-12 -->
 </div>
@@ -18,17 +18,17 @@
   <div class="col-lg-12">
     <div class="panel panel-default">
 
-      <div class="panel-heading">Board Read Page</div>
+      
       <!-- /.panel-heading -->
       <div class="panel-body">
 
           <div class="form-group">
-          <label>Bno</label> <input class="form-control" name='bno'
+          <label>번호</label> <input class="form-control" name='bno'
             value='<c:out value="${board.bno }"/>' readonly="readonly">
         </div>
 
         <div class="form-group">
-          <label>Title</label> <input class="form-control" name='title'
+          <label>제목</label> <input class="form-control" name='title'
             value='<c:out value="${board.title }"/>' readonly="readonly">
         </div>
         
@@ -43,14 +43,14 @@
         </div>
 
         <div class="form-group" contenteditable="true">
-          <label>Text area</label>
+          <label>내용</label>
           <textarea class="form-control" rows="3" name='content'
             readonly="readonly"><c:out value="${board.content}" /></textarea>
          
         </div>
 
         <div class="form-group">
-          <label>Writer</label> <input class="form-control" name='writer'
+          <label>작성자</label> <input class="form-control" name='writer'
             value='<c:out value="${board.writer }"/>' readonly="readonly">
         </div>
 
@@ -60,12 +60,12 @@
 
         <c:if test="${pinfo.username eq board.writer}">
         
-        <button data-oper='modify' class="btn btn-default">Modify</button>
+        <button data-oper='modify' class="btn btn-default">수정</button>
         
         </c:if>
         </sec:authorize>
 
-<button data-oper='list' class="btn btn-info">List</button>
+<button data-oper='list' class="btn btn-info">목록</button>
 
  <form id='operForm' action="/happy/modify" method="get">
   <input type='hidden' id='bno' name='bno' value='<c:out value="${board.bno}"/>'>
@@ -161,7 +161,7 @@
   <div class="col-lg-12">
     <div class="panel panel-default">
 
-      <div class="panel-heading">Files</div>
+      <div class="panel-heading">첨부파일</div>
       <!-- /.panel-heading -->
       <div class="panel-body">
         
@@ -189,9 +189,9 @@
    
       
       <div class="panel-heading">
-        <i class="fa fa-comments fa-fw"></i> Reply
+        <i class="fa fa-comments fa-fw"></i> 평가
         <sec:authorize access="isAuthenticated()">
-        <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New Reply</button>
+        <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>평점 남기기</button>
         </sec:authorize>
       </div>        
       
@@ -221,15 +221,15 @@
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal"
                 aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
+              <h4 class="modal-title" id="myModalLabel">평점 남기기</h4>
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <label>Reply</label> 
+                <label>평가</label> 
                 <input class="form-control" name='reply' value='New Reply!!!!'>
               </div>      
               <div class="form-group">
-                <label>Replyer</label> 
+                <label>작성자</label> 
                 <input class="form-control" name='replyer' value='replyer' readonly="readonly">
               </div>
          <c:if test="${pinfo.username != board.writer}">
@@ -257,10 +257,10 @@
       
             </div>
 <div class="modal-footer">
-        <button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
-        <button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
-        <button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
-        <button id='modalCloseBtn' type="button" class="btn btn-default">Close</button>
+        <button id='modalModBtn' type="button" class="btn btn-warning">수정</button>
+        <button id='modalRemoveBtn' type="button" class="btn btn-danger">삭제</button>
+        <button id='modalRegisterBtn' type="button" class="btn btn-primary">등록</button>
+        <button id='modalCloseBtn' type="button" class="btn btn-default">닫기</button>
       </div>          </div>
           <!-- /.modal-content -->
         </div>

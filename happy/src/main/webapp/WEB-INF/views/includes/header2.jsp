@@ -5,6 +5,9 @@
 <html lang="en">
 
 <head>
+<meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
+
 
 <style type="text/css">
 
@@ -12,6 +15,8 @@
   margin-top: 8px;
 }
 
+
+ 
 
 </style>
     <meta charset="utf-8">
@@ -56,7 +61,7 @@
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-                <form role="form" method='post' action="/customLogout">
+                <form role="form" method='get' action="/customLogout">
                 <img src="/resources/img/frog.png" width="40px" height="40px" id="header">
                 <a class="navbar-brand" href="/">Happy Frog v0.0</a>
          
@@ -65,6 +70,7 @@
           <button type="submit" data-oper='sign' class="btn btn-danger" id="header">등록</button>
           <button type="submit" data-oper='login' class="btn btn-success" id="header">로그인</button>
           </sec:authorize>
+          
           <sec:authorize access="isAuthenticated()">
           
           <button type="submit" data-oper='logout' class="btn btn-success" id="header">로그아웃</button>
